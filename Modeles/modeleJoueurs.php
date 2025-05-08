@@ -42,24 +42,31 @@ function obtenirId($login) {
 function creerJoueur($login, $motDePasse) {
     try {
         $bdd = connexionBdd();
-
+        // Vérifier que le login n'est pas vide
+        if ($login == ""){
+            return "le login est vide !";
+        }
+        if ($motDePasse == ""){
+            return "le mot de passe est vide !";
+        }
+        
         // Vérifier que le pseudo n'existe pas déjà
         $verif = $bdd->prepare("SELECT COUNT(*) FROM `joueurs` WHERE `pseudo` = :login");
         $verif->execute([":login" => $login]);
         if ($verif->fetchColumn() > 0) {
-            return "Ce pseudo existe déjà.";
+            return "Le login existe déjà";
         }
 
         // Hacher le mot de passe
         $hash = password_hash($motDePasse, PASSWORD_DEFAULT);
-
+        
         // Insérer le nouvel utilisateur
         $requete = $bdd->prepare("INSERT INTO `joueurs` (`pseudo`, `mdp`) VALUES (:login, :mdp)");
         $requete->execute([
             ":login" => $login,
             ":mdp" => $hash
         ]);
-        return true;
+        return "Compte créer avec succès";
     } catch (Exception $ex) {
         return "Erreur : " . $ex->getMessage();
     }

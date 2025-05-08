@@ -33,13 +33,19 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             header("Location: ../Vues/quiz.php");
             break;
 
+        case 'creerCompte' :
+            $login = filter_input(INPUT_GET, 'login');
+            $motDePasse = filter_input(INPUT_GET, 'mdp');
+            $retour = creerJoueur($login, $motDePasse);
+            echo $retour;
+
         default:
-            //echo json_encode("commande inconnue");
+        //echo json_encode("commande inconnue");
     }
 }
 
 function autoriser() {
-    
+
     if (empty($_SESSION['login'])) {
         $_SESSION['erreur'] = "Vous n'êtes pas connecté(e)";
         return false;
@@ -49,7 +55,7 @@ function autoriser() {
         unset($_SESSION['last_access']);
         unset($_SESSION['login']);
         unset($_SESSION['ipaddr']);
-        $_SESSION['erreur'] = "Votre session a expirée.";     
+        $_SESSION['erreur'] = "Votre session a expirée.";
         return false;
     }
 
@@ -59,12 +65,11 @@ function autoriser() {
         unset($_SESSION['last_access']);
         unset($_SESSION['login']);
         unset($_SESSION['ipaddr']);
-        $_SESSION['erreur'] = "erreur de session !!";     
+        $_SESSION['erreur'] = "erreur de session !!";
         return false;
     }
-    
-    return true;    
-    
+
+    return true;
 }
 ?>
 

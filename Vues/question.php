@@ -36,8 +36,8 @@ if (!autoriser()) {
         </div>
         <p style="display: none;" id="categorie"><?php echo $_GET["id"] ?></p>
         <div class="container mt-5" >
-
-            <div class="question-box">
+           
+            <div class="bg-white rounded shadow-lg p-4">
                 <div>
                     <h4 id="index"></h4>
                     <h4 id="question"></h4>
