@@ -9,9 +9,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="jouer.php">Jouer maintenant</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="personnaliser.php">Personnaliser</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Personnaliser</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="gerer_categories.php">Catégories</a></li>
+                        <li><a class="dropdown-item" href="gerer_questions.php">Questions</a></li>
+                        
+                    </ul>
                 </li>
 
 
@@ -22,8 +26,6 @@
                     <?php
                     if (empty($_SESSION['login'])) {
                         echo '<a href="connexion.php" class="btn btn-outline-primary">Connexion</a>';
-                    
-                        
                     } else {
                         echo '<span id="id_joueur" style="display: none;">';
                         echo $_SESSION['id'];

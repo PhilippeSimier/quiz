@@ -1,5 +1,10 @@
 <?php
-session_start();
+require_once __DIR__ . '/../Controleurs/session.php';
+
+if (!autoriser()) {
+    header("Location: ./connexion.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,14 +36,16 @@ session_start();
         </div>
         <p style="display: none;" id="categorie"><?php echo $_GET["id"] ?></p>
         <div class="container mt-5" >
-            
+
             <div class="question-box">
                 <div>
                     <h4 id="index"></h4>
                     <h4 id="question"></h4>
                 </div>
-                <input type="text" id="answerInput" placeholder="Votre réponse" />
-                <button id="valider">Valider</button>
+                <div class="d-flex mt-5">
+                    <input type="text" id="reponseJoueur" placeholder="Votre réponse" class="form-control me-2 w-25" />
+                    <button id="valider" type="button" class="btn btn-primary">Valider</button>
+                </div>
             </div>
 
             <div id="result"></div>

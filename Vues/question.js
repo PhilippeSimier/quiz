@@ -12,13 +12,13 @@ function enregistrerScore() {
                 'commande': 'enregistrerScore',
                 'type': id_categorie,
                 'score': score,
-                'joueur' :id_joueur
+                'joueur': id_joueur
             }
     )
             .done(function (data, stat, xhr) {
 
                 console.log(data);
-                
+
 
             })
             .fail(function (xhr, text, error) {
@@ -30,33 +30,34 @@ function enregistrerScore() {
 }
 
 
-function afficherQuestion(data) {
+function afficherQuestion() {
 
     if (questions.length === 0) {
-        document.getElementById("question").innerText = "Désolé pas de question !";
-        document.getElementById("answerInput").style.display = "none";
-        document.getElementById("valider").style.display = "none";
+        $("#question").text("Désolé pas de question !");
+        $("#reponseJoueur").hide();
+        $("#valider").hide();
+
 
     } else if (currentIndex < questions.length) {
-        document.getElementById("index").innerText = 'Question ' + (currentIndex+1) + '/' + questions.length;
-        document.getElementById("question").innerText = questions[currentIndex].intitule;
-        document.getElementById("answerInput").value = "";
-        document.getElementById("answerInput").focus();
+        $("#index").text('Question ' + (currentIndex + 1) + '/' + questions.length);
+        $("#question").text(questions[currentIndex].intitule);
+        $("#reponseJoueur").val("").focus();
+
     } else {
-        document.getElementById("index").style.display = "none";
-        document.getElementById("question").innerText = "Quiz terminé !";
-        document.getElementById("answerInput").style.display = "none";
-        document.getElementById("valider").style.display = "none";
-        document.getElementById("result").innerText = `Votre score : ${score} / ${questions.length}`;
+        $("#index").hide();
+        $("#question").text("Quiz terminé !");
+        $("#reponseJoueur").hide();
+        $("#valider").hide();
+        $("#result").text(`Vous avez bien répondu à ${score} questions sur ${questions.length}`);
         enregistrerScore();
     }
 }
 
 function verifierReponse() {
-    const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
-    const correctAnswer = questions[currentIndex].reponse.toLowerCase();
+    let  reponseJoueur = $("#reponseJoueur").val().trim().toLowerCase();
+    let  reponseAttendue = questions[currentIndex].reponse.toLowerCase();
 
-    if (userAnswer === correctAnswer) {
+    if (reponseJoueur === reponseAttendue) {
         score++;
     }
 
@@ -91,7 +92,7 @@ function demanderQuestions(type, nb) {
 
 $(document).ready(function ()
 {
-    console.log("Quiz Question categorie : ");
+    
     id_categorie = $('#categorie').text();
     id_joueur = $('#id_joueur').text();
     console.log('id_categorie :' + id_categorie);
