@@ -14,7 +14,8 @@ session_start();
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 
         <!-- jQuery (nécessaire pour DataTables) -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
         <!-- Bootstrap 5 JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -36,7 +37,7 @@ session_start();
                 <table id="classement" class="table table-striped table-bordered text-center" style="table-layout: fixed; width: 100%;">
                     <thead class="table-dark">
                         <tr>
-                            <th  class="text-center">Scores</th>
+                            <th  class="text-center">Score</th>
                             <th  class="text-center">Pseudo</th>
 
                         </tr>
