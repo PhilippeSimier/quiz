@@ -22,12 +22,14 @@ function enregistrerScore($type, $score, $joueur) {
 function obtenirClassement() {
     try {
         $bdd = connexionBdd();
-        $requete = $bdd->query("SELECT * FROM `classement`");     
+        $sql  = 'select sum(`scores`.`score`) AS `total`, `joueurs`.`pseudo`  from (`scores` join `joueurs`) where (`joueurs`.`id` = `scores`.`id_joueur`) group by `scores`.`id_joueur` ORDER by total DESC';
+
+        $requete = $bdd->query($sql);     
         $classement = $requete->fetchAll(PDO::FETCH_OBJ);
         return $classement;
         
     } catch (Exception $ex) {
-        $message = "Enregistrer Score: " . $ex->getMessage();
+        $message = "obtenirClassement: " . $ex->getMessage();
         return $message;
     }
 }

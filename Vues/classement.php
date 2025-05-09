@@ -33,12 +33,11 @@ session_start();
         </div>
         <div class="container my-5">
             <div class="table-responsive  w-100">
-                <table id="classement" class="table table-striped table-bordered text-center">
+                <table id="classement" class="table table-striped table-bordered text-center" style="table-layout: fixed; width: 100%;">
                     <thead class="table-dark">
                         <tr>
-
-                            <th  class=" text-center">Pseudo</th>
                             <th  class="text-center">Scores</th>
+                            <th  class="text-center">Pseudo</th>
 
                         </tr>
                     </thead>

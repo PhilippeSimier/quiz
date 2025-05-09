@@ -32,7 +32,7 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
             break;
 
         case 'obtenirClassement' :
-            echo json_encode(obtenirClassement());
+            echo json_encode(obtenirClassement(), JSON_NUMERIC_CHECK);
             break;
 
         default:

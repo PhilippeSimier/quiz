@@ -11,12 +11,11 @@ function afficherClassement() {
                 $('#classement').DataTable({
                     data: classement,
                     columns: [
-                        {data: 'pseudo'},
-                        {data: 'total'}
+                        {data: 'total'},
+                        {data: 'pseudo'}                       
                     ],
-                    language: {url: 'datatables_fr-FR.json'},
-
-                    ordering: true // Activer le tri
+                    order: [[0, 'desc']],               // première colonne (index 0), tri décroissant
+                    language: {url: 'datatables_fr-FR.json'}
                 });
             })
             .fail(function (xhr, text, error) {
