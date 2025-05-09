@@ -9,6 +9,10 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="jouer.php">Jouer maintenant</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="classement.php">Classement général</a>
+                </li>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Personnaliser</a>
                     <ul class="dropdown-menu">

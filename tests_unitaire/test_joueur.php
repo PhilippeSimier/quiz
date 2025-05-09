@@ -1,18 +1,6 @@
 <?php
 
-require_once './Modeles/modeleCategories.php';
-require_once './Modeles/modeleQuestions.php';
-require_once './Modeles/modeleScore.php';
-require_once './Modeles/modeleJoueurs.php';
-
-$categories = obtenirCategories();
-
-
-$questions = obtenirQuestions(10,5);
-
-echo '<pre>';
-print_r($questions);
-echo '</pre>';
+require_once '../Modeles/modeleJoueurs.php';
 
 
 $resultat = creerJoueur('toto', 'toto');
@@ -29,7 +17,11 @@ if (verifierMotDePasse('toto', 'toto')) {
     echo "</br>Identifiants invalides  ";
 }
 
+echo "</br>";
+
 echo obtenirId('toto');
+
+
 
 
 
