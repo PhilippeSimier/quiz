@@ -7,15 +7,15 @@ function obtenirCategories() {
 
         $bdd = connexionBdd();
 
-        $tabCategories = array();
+        $tabClassement = array();
         $requete = $bdd->query("SELECT * FROM `type_questions`");
 
-        while ($categorie = $requete->fetch(PDO::FETCH_OBJ)) {
+        while ($item = $requete->fetch(PDO::FETCH_OBJ)) {
 
-            array_push($tabCategories, $categorie);
+            array_push($tabClassement, $item);
         }
         $requete->closeCursor();
-        return $tabCategories;
+        return $tabClassement;
         
     } catch (Exception $ex) {
         print "Erreur !: " . $e->getMessage() . "<br/>";

@@ -38,9 +38,8 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             $motDePasse = filter_input(INPUT_GET, 'mdp');
             $retour = creerJoueur($login, $motDePasse);
             echo $retour;
-
-        default:
-        //echo json_encode("commande inconnue");
+            break;  
+           //echo json_encode("commande inconnue");
     }
 }
 
