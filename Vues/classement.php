@@ -7,11 +7,9 @@ session_start();
     <head>
         <meta charset="UTF-8">
         <title>Quiz - Classement</title>
-        <!-- Bootstrap 5 CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- DataTables Bootstrap 5 CSS -->
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+        
+        <link href="./css/bootstrap5.min.css" rel="stylesheet">
+        <link href="./css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
         <!-- jQuery (nécessaire pour DataTables) -->
         

@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+<?php session_start(); ?>
 
 <!DOCTYPE html>
 
@@ -8,8 +6,24 @@ session_start();
     <head>
         <meta charset="UTF-8">
         <title>Connexion Quiz</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./css/bootstrap5.min.css" rel="stylesheet">
+        <link href="./css/all.min.css" rel="stylesheet"/>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            function togglePassword(fieldId, iconElement) {
+                const input = document.getElementById(fieldId);
+                const icon = iconElement.querySelector('i');
+                if (input.type === "password") {
+                    input.type = "text";
+                    icon.classList.remove("fa-eye");
+                    icon.classList.add("fa-eye-slash");
+                } else {
+                    input.type = "password";
+                    icon.classList.remove("fa-eye-slash");
+                    icon.classList.add("fa-eye");
+                }
+            }
+        </script>
     </head>
     <body class="min-vh-100 d-flex flex-column">
         <?php require("./menu.php"); ?>
@@ -19,7 +33,7 @@ session_start();
 
         </div>
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 50vh;">
-            
+
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 mx-auto p-4 bg-white rounded shadow-lg">
                 <p><?= $_SESSION['erreur'] ?></p>
                 <form action="../Controleurs/session.php" method="get">
@@ -27,12 +41,17 @@ session_start();
                     <fieldset>
                         <legend>Connexion</legend>
                         <div class="mb-3 mt-3">
-                            <label for="email">Login:</label>
+                            <label for="login">Login:</label>
                             <input type="text" class="form-control" id="login" placeholder="Enter login" name="login">
                         </div>
                         <div class="mb-3">
-                            <label for="pwd">Password:</label>
-                            <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+                            <label for="pswd">Password:</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="pswd" placeholder="Mot de passe" name="pswd">
+                                <span class="input-group-text" onclick="togglePassword('pswd', this)">
+                                    <i class="fa-solid fa-eye"></i>
+                                </span>
+                            </div>                                                     
                         </div>
                         <div class="form-check mb-3">
                             <label class="form-check-label">
