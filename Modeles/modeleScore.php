@@ -12,10 +12,11 @@ function enregistrerScore($type, $score, $joueur) {
             ":id_joueur" => $joueur,
             ":score" => $score
         ]);
-        return $succes;
+        return json_encode($succes);
+        
     } catch (Exception $ex) {
         $message = "Enregistrer Score: " . $ex->getMessage();
-        return $message;
+        return json_encode($message);
     }
 }
 
@@ -26,10 +27,10 @@ function obtenirClassement() {
 
         $requete = $bdd->query($sql);     
         $classement = $requete->fetchAll(PDO::FETCH_OBJ);
-        return $classement;
+        return json_encode($classement, JSON_NUMERIC_CHECK);
         
     } catch (Exception $ex) {
         $message = "obtenirClassement: " . $ex->getMessage();
-        return $message;
+        return json_encode($message);
     }
 }

@@ -14,11 +14,12 @@ function obtenirQuestions($id, $nb) {
         $questions = $requete->fetchAll(PDO::FETCH_OBJ);   
         $requete->closeCursor();
         
-        return $questions;
+        return json_encode($questions);
         
     } catch (Exception $ex) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
-        die();
+        
+        $message = "obtenirQuestions: " . $ex->getMessage();
+        return json_encode($message);
     }
 }
 
@@ -31,7 +32,7 @@ function creerQuestion($id_type, $intitule, $reponse) {
         $verif = $bdd->prepare("SELECT COUNT(*) FROM `questions` WHERE `intitule` = :intitule");
         $verif->execute([":intitule" => $intitule]);
         if ($verif->fetchColumn() > 0) {
-            return "L'intitulé de la question existe déjà";
+            return json_encode("L'intitulé de la question existe déjà");
         }
 
         $requete = $bdd->prepare("INSERT INTO `questions` (`id_type`, `intitule`, `reponse` ) VALUES (:id_type, :intitule, :reponse)");
@@ -42,8 +43,9 @@ function creerQuestion($id_type, $intitule, $reponse) {
         return $result;
         
     } catch (Exception $ex) {
-        print "Erreur !: " . $e->getMessage() . "<br/>";
-        die();
+        
+        $message = "obtenirQuestions: " . $ex->getMessage();
+        return json_encode($message);
     }
     
 }

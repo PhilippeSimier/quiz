@@ -38,6 +38,7 @@
                 <p><?= $_SESSION['erreur'] ?></p>
                 <form action="../Controleurs/session.php" method="get">
                     <input type="hidden" name="commande" value="connecter">
+                    <input type="hidden" name="route" value="<?= $_GET['route'] ?>">
                     <fieldset>
                         <legend>Connexion</legend>
                         <div class="mb-3 mt-3">

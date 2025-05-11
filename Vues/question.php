@@ -14,9 +14,10 @@ if (!autoriser()) {
         <meta charset="UTF-8">
         <title>Questions</title>
         <link href="./css/bootstrap5.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>    
-        <script src="question.js" type="text/javascript"></script>
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/question.js" type="text/javascript"></script>
+        
         <style>
             .question-box {
                 margin-bottom: 20px;

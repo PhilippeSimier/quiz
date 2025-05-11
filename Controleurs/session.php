@@ -6,8 +6,9 @@ session_start();
 
 if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
 
-    // récupération de la donnée 'commande'
+    // récupération de la donnée 'commande' & route
     $commande = filter_input(INPUT_GET, 'commande');
+    $route = filter_input(INPUT_GET, 'route');
 
     switch ($commande) {
 
@@ -21,7 +22,12 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
                 $_SESSION['login'] = $_GET['login'];
                 $_SESSION['ipaddr'] = $_SERVER['REMOTE_ADDR'];
                 $_SESSION['id'] = obtenirId($login);
-                header("Location: ../Vues/quiz.php");
+
+                if (!empty($route)) {
+                    header("Location: ../Vues/{$route}");
+                } else {
+                    header("Location: ../Vues/quiz.php");
+                }
             } else {
                 $_SESSION['erreur'] = 'Veuillez inscrire vos identifiants svp !';
                 header("Location: ../Vues/connexion.php");
@@ -38,8 +44,8 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             $motDePasse = filter_input(INPUT_GET, 'mdp');
             $retour = creerJoueur($login, $motDePasse);
             echo $retour;
-            break;  
-           //echo json_encode("commande inconnue");
+            break;
+        //echo json_encode("commande inconnue");
     }
 }
 
@@ -68,6 +74,7 @@ function autoriser() {
         return false;
     }
 
+    $_SESSION['last_access'] = time();
     return true;
 }
 ?>

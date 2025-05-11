@@ -15,7 +15,7 @@ function afficherClassement() {
                         {data: 'pseudo'}                       
                     ],
                     order: [[0, 'desc']],               // première colonne (index 0), tri décroissant
-                    language: {url: 'datatables_fr-FR.json'}
+                    language: {url: './js/datatables_fr-FR.json'}
                 });
             })
             .fail(function (xhr, text, error) {

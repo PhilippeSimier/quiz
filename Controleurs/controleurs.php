@@ -15,24 +15,24 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
     switch ($commande) {
 
         case 'obtenirCategories' :
-            echo json_encode(obtenirCategories());
+            echo obtenirCategories();
             break;
 
         case 'obtenirQuestions' :
             $type = filter_input(INPUT_POST, 'type');
             $nb = filter_input(INPUT_POST, 'nb');
-            echo json_encode(obtenirQuestions($type, $nb));
+            echo obtenirQuestions($type, $nb);
             break;
 
         case 'enregistrerScore' :
             $type = filter_input(INPUT_POST, 'type');
             $score = filter_input(INPUT_POST, 'score');
             $joueur = filter_input(INPUT_POST, 'joueur');
-            echo json_encode(enregistrerScore($type, $score, $joueur));
+            echo enregistrerScore($type, $score, $joueur);
             break;
 
         case 'obtenirClassement' :
-            echo json_encode(obtenirClassement(), JSON_NUMERIC_CHECK);
+            echo obtenirClassement();
             break;
 
         default:

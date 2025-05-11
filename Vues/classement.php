@@ -11,9 +11,8 @@ session_start();
         <link href="./css/bootstrap5.min.css" rel="stylesheet">
         <link href="./css/dataTables.bootstrap5.min.css" rel="stylesheet">
 
-        <!-- jQuery (nécessaire pour DataTables) -->
-        
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <!-- jQuery (nécessaire pour DataTables) -->        
+        <script src="./js/jquery-3.7.1.min.js"></script>
 
         <!-- Bootstrap 5 JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -21,11 +20,11 @@ session_start();
         <!-- DataTables JS -->
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script src="classement.js"></script>
+        <script src="./js/classement.js"></script>
 
     </head>
     <body class="min-vh-100 d-flex flex-column">
-        <?php require("./menu.php"); ?>
+    <?php require("./menu.php"); ?>
         <div class="container-fluid p-5 bg-primary text-white text-center">
             <h1>Le classement des meilleurs joueurs</h1>    
 
@@ -43,7 +42,7 @@ session_start();
                 </table>
             </div>
         </div>
-        <?php readfile("./pied_de_page.html"); ?>
+    <?php require("./pied_de_page.html"); ?>
     </body>
 </html>
 
