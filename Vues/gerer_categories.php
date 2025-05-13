@@ -17,6 +17,7 @@ if (!autoriser()) {
 
         <link href="./css/bootstrap5.min.css" rel="stylesheet">
         <link href="./css/dataTables.bootstrap5.min.css" rel="stylesheet">
+        <link href="css/all.min.css" rel="stylesheet" type="text/css"/>
 
         <!-- jQuery (nécessaire pour DataTables) -->        
         <script src="./js/jquery-3.7.1.min.js"></script>
@@ -28,6 +29,26 @@ if (!autoriser()) {
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
         <script src="js/gerer_categories.js"></script>
+
+        <style>
+
+            .btn-icon {
+                background: none;
+                border: none;
+                font-size: 16px;
+                cursor: pointer;
+                padding: 2px 5px;
+                color: #444;
+            }
+            .btn-icon:hover {
+                color: #007bff;
+            }
+
+            .col-action {
+                width: 40px;
+                text-align: center;
+            }
+        </style>
 
     </head>
     <body class="min-vh-100 d-flex flex-column">
@@ -45,6 +66,9 @@ if (!autoriser()) {
                             <th  class="text-center">id</th>
                             <th  class="text-center">Nom</th>
                             <th  class="text-center">description</th>
+                            <th  class="text-center col-action"><i class="fas fa-pen"></i></th>
+                            <th  class="text-center col-action"><i class="fas fa-trash"></i></th> 
+
 
                         </tr>
                     </thead>
@@ -53,6 +77,36 @@ if (!autoriser()) {
         </div>
 
         <?php readfile("./pied_de_page.html"); ?>
+        <!-- Modale d'édition -->
+        <div id="editModal" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modifier une Catégorie</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="$('#editModal').hide()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editId">
+                        <div>
+                            <label class="form-label">Nom :</label><br>
+                            <input class="form-control" type="text" id="editNom" >
+                        </div>
+                        <div>
+                            <label class="form-label">Description :</label><br>
+                            <textarea class="form-control" id="editDescription" ></textarea>
+                        </div>
+                        <br>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="saveEdit">Enregistrer</button>
+                        <button type="button" class="btn btn-secondary" onclick="$('#editModal').hide()">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>    
     </body>
 </html>
 
