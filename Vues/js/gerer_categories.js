@@ -65,13 +65,31 @@ function afficherCategories() {
             });
 }
 
+function saveCategorie() {
+    const id = $('#editId').val();
+    const nom = $('#editNom').val();
+    const desc = $('#editDescription').val();
+    
+    // A compléter requête Ajax vers le controleur
+
+    const row = $('#editModal').data('rowRef');
+    
+    row.data({
+        id: parseInt(id),
+        nom_type: nom,
+        description: desc
+    }).draw(false);
+    
+    $('#editModal').hide();
+}
+
 
 
 $(document).ready(function () {
 
     console.log("Afficher les categories")
     afficherCategories();
-
+    $('#saveEdit').on('click', saveCategorie);
 
 });
 

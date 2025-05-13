@@ -59,6 +59,28 @@ function supprimerCategories($id) {
         ]);
 
         return json_encode($ret);
+    } catch (Exception $ex) {
+
+        $message = "obtenirCategories: " . $ex->getMessage();
+        return json_encode($message);
+    }
+}
+
+function updateCategories($id, $nom, $description) {
+
+    try {
+        $bdd = connexionBdd();
+        // Vérifier que l'id n'est pas vide
+        if ($id == "") {
+            return json_encode("l'id est vide !");
+        }
+        $requete = $bdd->prepare("UPDATE `type_questions` SET `nom_type` = :nom, `description` = :description WHERE `type_questions`.`id` = :id;");
+        $ret = $requete->execute([
+            ":nom" => $nom,
+            ":description" => $description,
+            ":id" => $id
+        ]);
+        return json_encode($ret);
         
     } catch (Exception $ex) {
 

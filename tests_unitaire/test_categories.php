@@ -12,4 +12,5 @@ echo $ret;
 $ret = creerCategories("test3", "test unitaires catégories");
 echo $ret;
 
-echo supprimerCategories(18);
+$ret = updateCategories(10, "Sports", "Tous types de sports et compétitions");
+echo $ret;
