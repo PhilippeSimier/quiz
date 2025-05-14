@@ -1,4 +1,22 @@
 let table; // accessible pour les handlers
+let isNew = false;
+
+function removeCategorie(id) {
+
+    console.log("Remove catagorie : " + id);
+    $.post('../Controleurs/controleurs.php',
+            {commande: 'supprimerCategories',
+                'id': id}
+    )
+            .done(function (categories, stat, xhr) {
+
+            })
+            .fail(function (xhr, text, error) {
+                console.log("param : " + JSON.stringify(xhr));
+                console.log("status : " + text);
+                console.log("error : " + error);
+            });
+}
 
 function afficherCategories() {
 
@@ -42,6 +60,8 @@ function afficherCategories() {
                     const row = table.row($(this).parents('tr'));
                     const rowData = row.data();
                     if (confirm(`Supprimer "${rowData.nom_type}" ?`)) {
+                        removeCategorie(rowData.id);
+
                         row.remove().draw();
                     }
                 });
@@ -69,25 +89,44 @@ function saveCategorie() {
     const id = $('#editId').val();
     const nom = $('#editNom').val();
     const desc = $('#editDescription').val();
-    
-    // A compléter requête Ajax vers le controleur
 
-    const row = $('#editModal').data('rowRef');
-    
-    row.data({
-        id: parseInt(id),
-        nom_type: nom,
-        description: desc
-    }).draw(false);
-    
-    $('#editModal').hide();
+    // Requête Ajax vers le controleur
+    $.post('../Controleurs/controleurs.php',
+            {
+                'commande': 'updateCategories',
+                'id': id,
+                'nom': nom,
+                'description': desc
+            }
+    ).done(function (reponse, stat, xhr) {
+
+        console.log(reponse);
+        if (reponse === true) {
+            // Mise à jour de la ligne du datatable
+            const row = $('#editModal').data('rowRef');
+
+            row.data({
+                id: parseInt(id),
+                nom_type: nom,
+                description: desc
+            }).draw(false);
+
+            $('#editModal').hide();
+        }
+
+    }).fail(function (xhr, text, error) {
+        console.log("param : " + JSON.stringify(xhr));
+        console.log("status : " + text);
+        console.log("error : " + error);
+
+    });
+
 }
 
 
 
 $(document).ready(function () {
 
-    console.log("Afficher les categories")
     afficherCategories();
     $('#saveEdit').on('click', saveCategorie);
 

@@ -24,6 +24,11 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
             $description = filter_input(INPUT_POST, 'description');
             echo updateCategories($id, $nom, $description );
             break;
+        
+        case 'supprimerCategories' :
+            $id = filter_input(INPUT_POST, 'id');
+            echo supprimerCategories($id);
+            break;
 
         case 'obtenirQuestions' :
             $type = filter_input(INPUT_POST, 'type');

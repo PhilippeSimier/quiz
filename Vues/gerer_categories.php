@@ -60,6 +60,7 @@ if (!autoriser()) {
 
         <div class="container my-5">
             <div class="table-responsive  w-100">
+                <button id="btnAddNew" type="button" class="btn btn-secondary"> Ajouter </button>
                 <table id="categories" class="table table-striped table-bordered text-center" style="table-layout: fixed; width: 100%;">
                     <thead class="table-dark">
                         <tr>
