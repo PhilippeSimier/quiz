@@ -17,17 +17,23 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
         case 'obtenirCategories' :
             echo obtenirCategories();
             break;
-        
+
         case 'updateCategories' :
             $id = filter_input(INPUT_POST, 'id');
             $nom = filter_input(INPUT_POST, 'nom');
             $description = filter_input(INPUT_POST, 'description');
-            echo updateCategories($id, $nom, $description );
+            echo updateCategories($id, $nom, $description);
             break;
-        
+
         case 'supprimerCategories' :
             $id = filter_input(INPUT_POST, 'id');
             echo supprimerCategories($id);
+            break;
+
+        case 'creerCategories' :
+            $nom = filter_input(INPUT_POST, 'nom');
+            $description = filter_input(INPUT_POST, 'description');
+            echo creerCategories( $nom, $description);
             break;
 
         case 'obtenirQuestions' :

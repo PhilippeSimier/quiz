@@ -19,6 +19,7 @@ function obtenirCategories() {
 }
 
 function creerCategories($nom, $description) {
+    
     try {
         $bdd = connexionBdd();
         // Vérifier que le login n'est pas vide
@@ -30,16 +31,17 @@ function creerCategories($nom, $description) {
         $verif = $bdd->prepare("SELECT COUNT(*) FROM `type_questions` WHERE `nom_type` = :nom");
         $verif->execute([":nom" => $nom]);
         if ($verif->fetchColumn() > 0) {
-            return json_encode("La catégorie existe déjà");
+            return json_encode(false);
         }
 
         // Insérer le nouveau type de question
         $requete = $bdd->prepare("INSERT INTO `type_questions` (`nom_type`, `description`) VALUES (:nom, :description)");
-        $requete->execute([
+        $retour = $requete->execute([
             ":nom" => $nom,
             ":description" => $description
         ]);
-        return json_encode("Catégorie créée avec succès");
+        return json_encode( $bdd->lastInsertId() );
+        
     } catch (Exception $ex) {
         return "Erreur : " . $ex->getMessage();
     }

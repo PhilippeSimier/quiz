@@ -91,35 +91,74 @@ function saveCategorie() {
     const desc = $('#editDescription').val();
 
     // Requête Ajax vers le controleur
-    $.post('../Controleurs/controleurs.php',
-            {
-                'commande': 'updateCategories',
-                'id': id,
-                'nom': nom,
-                'description': desc
-            }
-    ).done(function (reponse, stat, xhr) {
+    if (isNew) {
+        $.post('../Controleurs/controleurs.php',
+                {
+                    'commande': 'creerCategories',
+                    'nom': nom,
+                    'description': desc
+                }
+        ).done(function (reponse, stat, xhr) {
 
-        console.log(reponse);
-        if (reponse === true) {
-            // Mise à jour de la ligne du datatable
-            const row = $('#editModal').data('rowRef');
-
-            row.data({
-                id: parseInt(id),
+            console.log(reponse);
+            table.row.add({
+                id: reponse,
                 nom_type: nom,
                 description: desc
             }).draw(false);
-
             $('#editModal').hide();
-        }
 
-    }).fail(function (xhr, text, error) {
-        console.log("param : " + JSON.stringify(xhr));
-        console.log("status : " + text);
-        console.log("error : " + error);
+        }).fail(function (xhr, text, error) {
+            console.log("param : " + JSON.stringify(xhr));
+            console.log("status : " + text);
+            console.log("error : " + error);
 
-    });
+        });
+
+        isNew = false;
+    } else {
+
+        $.post('../Controleurs/controleurs.php',
+                {
+                    'commande': 'updateCategories',
+                    'id': id,
+                    'nom': nom,
+                    'description': desc
+                }
+        ).done(function (reponse, stat, xhr) {
+
+            console.log(reponse);
+            if (reponse === true) {
+                // Mise à jour de la ligne du datatable
+                const row = $('#editModal').data('rowRef');
+                row.data({
+                    id: parseInt(id),
+                    nom_type: nom,
+                    description: desc
+                }).draw(false);
+
+                $('#editModal').hide();
+            }
+
+        }).fail(function (xhr, text, error) {
+            console.log("param : " + JSON.stringify(xhr));
+            console.log("status : " + text);
+            console.log("error : " + error);
+
+        });
+
+    }
+}
+
+function addCategorie() {
+    isNew = true;
+
+    // Vide les champs de la modale
+    $('#editId').val('');
+    $('#editNom').val('');
+    $('#editDescription').val('');
+
+    $('#editModal').show().removeData('rowRef');
 
 }
 
@@ -127,9 +166,10 @@ function saveCategorie() {
 
 $(document).ready(function () {
 
+    isNew = false;
     afficherCategories();
     $('#saveEdit').on('click', saveCategorie);
-
+    $('#btnAddNew').on('click', addCategorie);
 });
 
 
