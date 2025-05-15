@@ -33,13 +33,33 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'POST') {
         case 'creerCategories' :
             $nom = filter_input(INPUT_POST, 'nom');
             $description = filter_input(INPUT_POST, 'description');
-            echo creerCategories( $nom, $description);
+            echo creerCategories($nom, $description);
             break;
 
         case 'obtenirQuestions' :
             $type = filter_input(INPUT_POST, 'type');
             $nb = filter_input(INPUT_POST, 'nb');
             echo obtenirQuestions($type, $nb);
+            break;
+
+        case 'updateQuestion' :
+            $id = filter_input(INPUT_POST, 'id');
+            $id_type = filter_input(INPUT_POST, 'id_type');
+            $intitule = filter_input(INPUT_POST, 'intitule');
+            $reponse = filter_input(INPUT_POST, 'reponse');
+            echo updateQuestion($id, $id_type, $intitule, $reponse);
+            break;
+
+        case 'supprimerQuestion' :
+            $id = filter_input(INPUT_POST, 'id');
+            echo supprimerQuestion($id);
+            break;
+
+        case 'creerQuestion' :
+            $id_type = filter_input(INPUT_POST, 'id_type');
+            $intitule = filter_input(INPUT_POST, 'intitule');
+            $reponse = filter_input(INPUT_POST, 'reponse');
+            echo creerQuestion($id_type, $intitule, $reponse);
             break;
 
         case 'enregistrerScore' :

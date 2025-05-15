@@ -70,7 +70,7 @@ function afficherCategories() {
                 $('#categories tbody').on('click', '.edit-btn', function () {
                     const row = table.row($(this).parents('tr'));
                     const data = row.data();
-
+                    $(".modal-title").text("Modifier une catégorie");
                     $('#editId').val(data.id);
                     $('#editNom').val(data.nom_type);
                     $('#editDescription').val(data.description);
@@ -152,7 +152,7 @@ function saveCategorie() {
 
 function addCategorie() {
     isNew = true;
-
+    $(".modal-title").text("Ajouter une catégorie");
     // Vide les champs de la modale
     $('#editId').val('');
     $('#editNom').val('');

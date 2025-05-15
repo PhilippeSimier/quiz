@@ -40,7 +40,7 @@ function creerCategories($nom, $description) {
             ":nom" => $nom,
             ":description" => $description
         ]);
-        return json_encode( $bdd->lastInsertId() );
+        return json_encode( $bdd->lastInsertId(), JSON_NUMERIC_CHECK );
         
     } catch (Exception $ex) {
         return "Erreur : " . $ex->getMessage();
@@ -55,6 +55,18 @@ function supprimerCategories($id) {
         if ($id == "") {
             return json_encode("l'id est vide !");
         }
+        // supprime les questions de la catégorie
+        $requete = $bdd->prepare("DELETE FROM `questions` WHERE `id_type` = :id");
+        $ret = $requete->execute([
+            ":id" => $id
+        ]);
+        
+        // supprime les scores relative à la catégorie
+        $requete = $bdd->prepare("DELETE FROM `scores` WHERE `id_type` = :id");
+        $ret = $requete->execute([
+            ":id" => $id
+        ]);
+        
         $requete = $bdd->prepare("DELETE FROM `type_questions` WHERE `type_questions`.`id` = :id");
         $ret = $requete->execute([
             ":id" => $id
