@@ -62,6 +62,7 @@ function autoriser() {
         unset($_SESSION['last_access']);
         unset($_SESSION['login']);
         unset($_SESSION['ipaddr']);
+        unset($_SESSION['droit']);
         $_SESSION['erreur'] = "Votre session a expirée.";
         return false;
     }

@@ -14,7 +14,7 @@
                 </li>
                 <?php
                 if ($_SESSION['droit'] === 1) {
-                    readfile("./sous_menu_admin.html");
+                    readfile("./item_personnaliser.html");
                 }
                 ?>        
             </ul>
@@ -25,13 +25,7 @@
                     if (empty($_SESSION['login'])) {
                         echo '<a href="connexion.php" class="btn btn-outline-primary">Connexion</a>';
                     } else {
-                        echo '<span id="id_joueur" style="display: none;">';
-                        echo $_SESSION['id'];
-                        echo '</span>';
-                        echo ' <span class="navbar-text">';
-                        echo $_SESSION['login'];
-                        echo '</span> ';
-                        echo '<a href="../Controleurs/session.php?commande=deconnecter" class="btn btn-outline-primary">Déconnexion</a>';
+                        require("./item_user.php");
                     }
                     ?>
                 </li>
