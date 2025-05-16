@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Mer 07 Mai 2025 à 17:13
+-- Généré le :  Ven 16 Mai 2025 à 09:39
 -- Version du serveur :  10.1.41-MariaDB-0+deb9u1
 -- Version de PHP :  7.0.33-0+deb9u10
 
@@ -23,23 +23,38 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Doublure de structure pour la vue `classement`
+-- (Voir ci-dessous la vue réelle)
+--
+CREATE TABLE `classement` (
+`pseudo` varchar(15)
+,`total` decimal(32,0)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `joueurs`
 --
 
 CREATE TABLE `joueurs` (
   `id` int(11) NOT NULL,
   `pseudo` varchar(15) NOT NULL,
-  `mdp` varchar(255) NOT NULL
+  `mdp` varchar(255) NOT NULL,
+  `droit` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `joueurs`
 --
 
-INSERT INTO `joueurs` (`id`, `pseudo`, `mdp`) VALUES
-(1, 'philippe', '$2y$10$v5YGT3Xvj7h1BS8Hsvrdp.QbaD8eBOEzrqvioL3rPBXujEjpvgYWe'),
-(5, 'ciel', '$2y$10$v5YGT3Xvj7h1BS8Hsvrdp.QbaD8eBOEzrqvioL3rPBXujEjpvgYWe'),
-(6, 'toto', '$2y$10$bDBPIu2m2KG2t4Z3metgzuokmasXEDeQ0fdbB3jTSS.Y4y2qdQnAW');
+INSERT INTO `joueurs` (`id`, `pseudo`, `mdp`, `droit`) VALUES
+(5, 'ciel', '$2y$10$v5YGT3Xvj7h1BS8Hsvrdp.QbaD8eBOEzrqvioL3rPBXujEjpvgYWe', 0),
+(6, 'toto', '$2y$10$bDBPIu2m2KG2t4Z3metgzuokmasXEDeQ0fdbB3jTSS.Y4y2qdQnAW', 0),
+(7, 'Robert', '$2y$10$fn1J.d2kpNvM7wcGBj278e.agM8AMSlCApEFnK65r2gv/uTlmroY2', 0),
+(8, 'Erwän', '$2y$10$IVEIeW3PEGHgsnLxl1YqB.auzqW06dOxmIFl1xOzAoNwIVBmr/M3G', 0),
+(9, 'philippe', '$2y$10$TP0JYmwxmpASviDFaIDZQOT2N2EqIEH0IY5G3VeIRQ2hT55HzZGq6', 1),
+(10, 'root', '$2y$10$3wmCpQHBX7/2nQzz.56TQ.k8YWRMcJXI.vh5Tci0LNqe07LfQJ7y6', 1);
 
 -- --------------------------------------------------------
 
@@ -78,7 +93,8 @@ INSERT INTO `questions` (`id`, `id_type`, `intitule`, `reponse`) VALUES
 (22, 11, 'Quel est le plus haut sommet du monde ?', 'Everest'),
 (23, 11, 'Quel est le désert le plus chaud du monde ?', 'Sahara'),
 (26, 11, 'Quel pays a la forme d\'une botte ?', 'Italie'),
-(27, 11, 'Quel fleuve traverse la ville de Paris ?', 'Seine');
+(27, 11, 'Quel fleuve traverse la ville de Paris ?', 'Seine'),
+(31, 10, 'Combien de temps (minutes) dure un match de basket en NBA ?', '48');
 
 -- --------------------------------------------------------
 
@@ -99,7 +115,17 @@ CREATE TABLE `scores` (
 
 INSERT INTO `scores` (`id_type`, `id_joueur`, `score`, `horodatage`) VALUES
 (11, 6, 4, '2025-05-07 16:40:08'),
-(10, 6, 4, '2025-05-07 16:47:49');
+(10, 6, 4, '2025-05-07 16:47:49'),
+(11, 7, 4, '2025-05-09 08:06:42'),
+(10, 7, 4, '2025-05-09 10:46:38'),
+(11, 7, 4, '2025-05-09 13:06:36'),
+(11, 8, 5, '2025-05-09 13:43:45'),
+(11, 8, 5, '2025-05-09 13:44:33'),
+(11, 8, 4, '2025-05-09 13:45:52'),
+(11, 7, 0, '2025-05-09 14:10:28'),
+(11, 6, 5, '2025-05-09 15:54:26'),
+(11, 9, 5, '2025-05-09 16:18:51'),
+(11, 9, 0, '2025-05-12 14:24:32');
 
 -- --------------------------------------------------------
 
@@ -118,12 +144,22 @@ CREATE TABLE `type_questions` (
 --
 
 INSERT INTO `type_questions` (`id`, `nom_type`, `description`) VALUES
-(10, 'Sports', 'Tous types de sports et compétitions'),
+(10, 'sports', 'Tous types de sports et compétitions'),
 (11, 'Géographie', 'Pays, capitales et découvertes'),
 (12, 'Histoire', 'Evènement et personnages historiques'),
 (13, 'Sciences', 'Physique, chimie, biologie et plus'),
 (14, 'Divertissement', 'Films, séries et jeux vidéos'),
-(15, 'Culture générale', 'Questions variées sur divers sujets');
+(15, 'Culture générale', 'Questions variées sur divers sujets'),
+(35, 'Anglais', 'Vocabulaire & verbes irréguliers');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la vue `classement`
+--
+DROP TABLE IF EXISTS `classement`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`ciel`@`localhost` SQL SECURITY DEFINER VIEW `classement`  AS  select `joueurs`.`pseudo` AS `pseudo`,sum(`scores`.`score`) AS `total` from (`scores` join `joueurs`) where (`joueurs`.`id` = `scores`.`id_joueur`) group by `scores`.`id_joueur` ;
 
 --
 -- Index pour les tables exportées
@@ -163,17 +199,17 @@ ALTER TABLE `type_questions`
 -- AUTO_INCREMENT pour la table `joueurs`
 --
 ALTER TABLE `joueurs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT pour la table `questions`
 --
 ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT pour la table `type_questions`
 --
 ALTER TABLE `type_questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- Contraintes pour les tables exportées
 --

@@ -23,15 +23,15 @@ function verifierMotDePasse($login, $motDePasseSaisi) {
     }
 }
 
-function obtenirId($login) {
+function obtenirUser($login) {
     try {
         
         $bdd = connexionBdd();
-        $requete = $bdd->prepare("SELECT id FROM `joueurs` where `pseudo` = :login");
+        $requete = $bdd->prepare("SELECT * FROM `joueurs` where `pseudo` = :login");
         $requete->execute([":login" => $login]);
-        $resultat = $requete->fetch(PDO::FETCH_OBJ);
+        $user = $requete->fetch(PDO::FETCH_OBJ);
         $requete->closeCursor();
-        return $resultat->id;
+        return $user;
         
     } catch (Exception $ex) {
         $message = "Erreur obtenirId: " . $ex->getMessage();

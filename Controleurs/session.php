@@ -21,7 +21,9 @@ if (filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
                 $_SESSION['last_access'] = time();
                 $_SESSION['login'] = $_GET['login'];
                 $_SESSION['ipaddr'] = $_SERVER['REMOTE_ADDR'];
-                $_SESSION['id'] = obtenirId($login);
+                $user = obtenirUser($login); 
+                $_SESSION['id'] = $user->id;
+                $_SESSION['droit'] = $user->droit;
 
                 if (!empty($route)) {
                     header("Location: ../Vues/{$route}");
